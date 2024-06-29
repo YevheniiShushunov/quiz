@@ -1,0 +1,59 @@
+.App {
+  text-align: center;
+}
+
+.btn {
+  width: 150px;
+  padding: 5px 12px;
+  border-radius: 15px;
+}
+
+.quizlet__container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.quizlet__container h1 {
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.quiz-card {
+  margin-top: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 20px 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  font-size: 18px;
+}
+
+.quiz-card:hover {
+  cursor: pointer;
+}
+
+.card-title h2 {
+  text-align: left;
+  font-size: 32px;
+  font-weight: 700;
+}
+.card-counter {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.card-text {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.input {
+  /*outline: none;*/
+  /*width: 100%;*/
+  height: 56px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  position: relative;
+  background: rgba(237, 230, 230, 0.3);
+  transition: 0.3s all;
+}
+
