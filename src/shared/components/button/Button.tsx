@@ -5,16 +5,17 @@ interface Button {
     onClick?: () => void;
     disable?: boolean;
     buttonType?: "submit" | "button" | "reset" | undefined;
+    bcolor?: string;
 }
 
-const Button = ({name, onClick, disable, buttonType = "button"}: Button) => {
+const Button = ({name, onClick, disable, buttonType = "button", bcolor = "btngreen"}: Button) => {
     return (
         <div>
             <button
                 type={buttonType}
                 disabled={disable}
                 onClick={onClick}
-                className="btn mt-2 ml-2 text-white bg-btngreen hover:bg-green-700">{name}
+                className={`btn mt-2 ml-2 text-white bg-${bcolor} hover:bg-green-700`}>{name}
             </button>
         </div>
     );

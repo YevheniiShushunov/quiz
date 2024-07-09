@@ -4,6 +4,7 @@ import Button from "../../shared/components/button/Button";
 import { addQuizlets, getQuizletById, Quiz, QuizItem } from "../../api-data/database";
 import { initialQuizManageData, initialQuestionData  } from "../../functions/initial-data";
 import { updateQuizletById } from "../../api-data/database";
+import {ReactComponent as Del} from "../../assets/icons/del.svg";
 
 
 const Manage = () => {
@@ -23,7 +24,6 @@ const Manage = () => {
     }
 
     const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>, qIndex: number) => {
-        console.log(e.target.name)
         const newQuiz = quiz?.questions.map((question, idx) => {
             if (qIndex === idx) {
                 return {...question, [e.target.name]: e.target.value};
@@ -49,8 +49,7 @@ const Manage = () => {
     };
 
     const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>, qIndex: number, aIndex: number) => {
-        console.log(e.target.value)
-        const newQuiz = quiz?.questions.map((question, qIdx) => {
+        const newQuiz= quiz?.questions.map((question, qIdx) => {
             if (qIndex === qIdx) {
                 const newAnswers = question.answers.map((answer, aIdx) => {
                     if (aIndex === aIdx) {
@@ -73,6 +72,43 @@ const Manage = () => {
             questions: newQuiz
         });
     }
+
+    const deleteAnswer = (qIndex: number, aIndex: number) => {
+        const newQuiz = quiz?.questions.map((question, qIdx) => {
+            if (qIndex === qIdx) {
+                const newAnswers = question.answers.filter((_, aIdx) => aIdx !== aIndex);
+                return {...question, answers: newAnswers};
+            }
+            return question;
+        });
+
+        setQuiz({
+            ...quiz,
+            questions: newQuiz
+        });
+    }
+
+    const answerAdd = (qIndex: number) => {
+        const initialAnswer = {
+                id: 1,
+                text: "",
+                scores: 0,
+                correct: false,
+            }
+
+        const newQuiz = quiz?.questions.map((question, qIdx) => {
+            if (qIndex === qIdx) {
+                const newAnswers = [...question.answers, initialAnswer];
+                return {...question, answers: newAnswers};
+            }
+            return question;
+        });
+
+        setQuiz({
+            ...quiz,
+            questions: newQuiz
+        });
+    };
 
     const handleSubmit = () => {
         if (id) {
@@ -123,7 +159,7 @@ const Manage = () => {
 
                                         <div className="flex flex-col mt-2">
                                             {question.answers.map((answer, aIndex: number) => (
-                                                <div key={aIndex} className="flex w-full px-5">
+                                                <div key={aIndex} className="flex w-full px-5 items-center">
                                                     <input
                                                         type="checkbox"
                                                         name="correct"
@@ -145,8 +181,10 @@ const Manage = () => {
                                                         value={answer?.scores}
                                                         onChange={(e) => handleQuestionChange(e, qIndex)}
                                                         className="input ml-3 my-2"/>
+                                                    <Button name={"Del"} bcolor={"del"} onClick={() => deleteAnswer(qIndex, aIndex)}/>
                                                 </div>
                                             ))}
+                                            <Button name={"Add question"} bcolor={"card"} onClick={() => answerAdd(qIndex)}/>
                                         </div>
                                     </div>
                                 </div>
